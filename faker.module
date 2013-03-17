@@ -32,6 +32,7 @@ function faker_hook_info() {
   // Allow faker hooks to be defined in modulename.faker.inc.
   $hooks['faker_alter'] = array('group' => 'faker');
   $hooks['faker_node_generate'] = array('group' => 'faker');
+  return $hooks;
 }
 
 /**
@@ -50,7 +51,7 @@ function faker_create() {
 /**
  * Implements hook_node_presave().
  */
-function nrdc_content_node_presave($node) {
+function faker_node_presave($node) {
   if (!empty($node->devel_generate)) {
     $faker = faker_create();
     module_invoke_all('faker_node_generate', $node, $faker);
