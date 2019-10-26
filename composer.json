@@ -1,0 +1,14 @@
+{
+    "name": "drupal/faker",
+    "type": "drupal-module",
+    "keywords": ["Drupal"],
+    "license": "GPL-2.0+",
+    "homepage": "https://github.com/baikho/Faker",
+    "minimum-stability": "dev",
+    "require": {
+        "fzaninotto/faker": "^1.8"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-master"
+    }
+}

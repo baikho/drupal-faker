@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @file
+ * The Faker module file.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\faker\FakerConstants;
+use Drupal\faker\Plugin\DevelGenerate\FakerContentDevelGenerate;
+use Faker\Factory;
+
+/**
+ * Implements hook_devel_generate_info_alter().
+ *
+ * Alter existing plugins from devel_generate.
+ */
+function faker_devel_generate_info_alter(array &$definitions) {
+  $definitions['content']['class'] = FakerContentDevelGenerate::class;
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ *
+ * Target nodes that have been saved through devel_generate.
+ */
+function faker_node_presave(EntityInterface $node) {
+
+  $devel_generate = \Drupal::moduleHandler()->moduleExists('devel_generate');
+
+  // Check for devel_generate details.
+  if ($devel_generate && isset($node->devel_generate)) {
+    // Check if Faker has been chosen in the form.
+    if (isset($node->devel_generate[FakerConstants::USE_FAKER]) && (bool) $node->devel_generate[FakerConstants::USE_FAKER] === TRUE) {
+      $node->setTitle(Factory::create()->country);
+    }
+  }
+
+}
