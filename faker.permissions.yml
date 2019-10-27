@@ -1,0 +1,3 @@
+administer faker profile configuration:
+  title: 'Manage Faker Profiles'
+  restrict access: TRUE

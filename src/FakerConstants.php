@@ -8,8 +8,13 @@ namespace Drupal\faker;
 abstract class FakerConstants {
 
   /**
-   * Faker checkbox form key.
+   * Faker Profile form key.
    */
-  public const USE_FAKER = 'use_faker';
+  public const PROFILE = 'faker_profile';
+
+  /**
+   * Faker locale form key.
+   */
+  public const LOCALE = 'faker_locale';
 
 }

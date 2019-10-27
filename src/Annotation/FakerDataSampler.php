@@ -30,10 +30,10 @@ class FakerDataSampler extends Plugin {
   public $label;
 
   /**
-   * The plugin field type ID.
+   * The plugin field type IDs.
    *
-   * @var string
+   * @var array
    */
-  public $fieldTypeId;
+  public $field_type_ids = [];
 
 }

@@ -14,9 +14,12 @@ abstract class FakerDataSamplerBase extends PluginBase implements FakerDataSampl
   /**
    * {@inheritdoc}
    */
-  public function getFieldTypeId() {
+  public function getFieldTypeIds() {
     $plugin_definition = $this->getPluginDefinition();
-    return !empty($plugin_definition['fieldTypeId']) ? $plugin_definition['fieldTypeId'] : FALSE;
+    if (isset($plugin_definition['field_type_ids']) && $plugin_definition($plugin_definition['field_type_ids'])) {
+      return $plugin_definition['field_type_ids'];
+    }
+    return [];
   }
 
 }

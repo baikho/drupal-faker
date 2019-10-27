@@ -11,7 +11,10 @@ use Faker\Factory;
  *
  * @FakerDataSampler(
  *   id = "faker_text_with_summary",
- *   fieldTypeId = "text_with_summary",
+ *   label = @Translation("Faker Text (formatted, long, with summary)"),
+ *   field_type_ids = {
+ *     "text_with_summary",
+ *   }
  * )
  */
 class TextWithSummaryFakerDataSampler extends FakerDataSamplerBase {
@@ -19,9 +22,9 @@ class TextWithSummaryFakerDataSampler extends FakerDataSamplerBase {
   /**
    * {@inheritdoc}
    */
-  public static function generateFakerValue(FieldDefinitionInterface $field_definition) {
+  public static function generateFakerValue(FieldDefinitionInterface $field_definition, $faker_locale = NULL) {
 
-    $faker = Factory::create();
+    $faker = Factory::create($faker_locale);
     $settings = $field_definition->getSettings();
 
     if (empty($settings['max_length'])) {

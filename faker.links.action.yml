@@ -1,0 +1,5 @@
+entity.faker_profile.add_form:
+  route_name: 'entity.faker_profile.add_form'
+  title: 'Add Faker Profile'
+  appears_on:
+    - entity.faker_profile.collection

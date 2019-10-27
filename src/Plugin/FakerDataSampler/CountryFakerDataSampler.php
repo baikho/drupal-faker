@@ -10,23 +10,20 @@ use Faker\Factory;
  * Class EmailFakerDataSampler.
  *
  * @FakerDataSampler(
- *   id = "faker_email",
- *   label = @Translation("Faker Email"),
+ *   id = "faker_country",
+ *   label = @Translation("Faker Country"),
  *   field_type_ids = {
- *     "email",
  *     "string",
  *   }
  * )
  */
-class EmailFakerDataSampler extends FakerDataSamplerBase {
+class CountryFakerDataSampler extends FakerDataSamplerBase {
 
   /**
    * {@inheritdoc}
    */
   public static function generateFakerValue(FieldDefinitionInterface $field_definition, $faker_locale = NULL) {
-    return [
-      'value' => Factory::create($faker_locale)->safeEmail,
-    ];
+    return Factory::create($faker_locale)->country;
   }
 
 }

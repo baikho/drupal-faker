@@ -1,0 +1,5 @@
+entity.faker_profile.collection:
+  title: 'Faker Profiles'
+  parent: system.admin_config_development
+  description: 'Configure Faker Profiles'
+  route_name: entity.faker_profile.collection

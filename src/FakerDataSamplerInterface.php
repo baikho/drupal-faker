@@ -12,16 +12,18 @@ use Drupal\Core\Field\FieldDefinitionInterface;
 interface FakerDataSamplerInterface {
 
   /**
-   * Get relevant field type id.
+   * Get relevant field type ids.
    */
-  public function getFieldTypeId();
+  public function getFieldTypeIds();
 
   /**
    * Generate sample data with Faker.
    *
    * @param \Drupal\Core\Field\FieldDefinitionInterface $field_definition
    *   Field definition.
+   * @param string $faker_locale
+   *   The locale to use if specified.
    */
-  public static function generateFakerValue(FieldDefinitionInterface $field_definition);
+  public static function generateFakerValue(FieldDefinitionInterface $field_definition, $faker_locale = NULL);
 
 }

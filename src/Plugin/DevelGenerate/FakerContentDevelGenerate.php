@@ -26,11 +26,44 @@ class FakerContentDevelGenerate extends ContentDevelGenerate {
    */
   public function settingsForm(array $form, FormStateInterface $form_state) {
 
-    $form[FakerConstants::USE_FAKER] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Use Faker data'),
-      '#description' => $this->t('Use Faker for content population.'),
+    try {
+      $entities = \Drupal::entityTypeManager()->getStorage('faker_profile')->loadMultiple();
+    }
+    catch (\Exception $e) {
+      $entities = [];
+    }
+
+    $faker_profile_options = [
+      '_none_' => $this->t('None'),
+    ];
+
+    foreach ($entities as $key => $entity) {
+      $faker_profile_options[$key] = $entity->label();
+    }
+
+    $form[FakerConstants::PROFILE] = [
+      '#title' => $this->t('Faker Profile'),
+      '#description' => $this->t('Use a Faker Profile for content population.'),
+      '#type' => 'select',
+      '#options' => $faker_profile_options,
       '#weight' => 100,
+    ];
+
+    $form[FakerConstants::LOCALE] = [
+      '#title' => $this->t('Faker Locale'),
+      '#description' => $this->t('Use a Faker Locale for content population.'),
+      '#type' => 'select',
+      '#options' => [
+        'en_US' => 'en_US',
+        'en_GB' => 'en_GB',
+        'nl_BE' => 'nl_BE',
+      ],
+      '#weight' => 100,
+      '#states' => [
+        'invisible' => [
+          ':input[name="' . FakerConstants::PROFILE . '"]' => ['value' => '_none_'],
+        ],
+      ],
     ];
 
     return parent::settingsForm($form, $form_state);
@@ -41,7 +74,7 @@ class FakerContentDevelGenerate extends ContentDevelGenerate {
    */
   protected function develGenerateContentAddNode(&$results) {
     if (self::$faker === NULL) {
-      self::$faker = (bool) $results[FakerConstants::USE_FAKER] === TRUE;
+      self::$faker = $results[FakerConstants::PROFILE] !== '_none_';
     }
     parent::develGenerateContentAddNode($results);
   }

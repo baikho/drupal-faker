@@ -21,4 +21,4 @@ CONFIGURATION
 
 1. Navigate to settings form through `Admin > Configuration > Development > Faker`
 
-   or directly at path `/admin/config/development/faker`
+   or directly at path `/admin/config/development/faker-profile`

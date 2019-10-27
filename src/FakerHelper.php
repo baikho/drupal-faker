@@ -17,15 +17,18 @@ class FakerHelper {
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The entity to be enriched with sample field values.
+   * @param string $faker_profile_id
+   *   The profile to use.
+   * @param string $faker_locale
+   *   The locale to use if specified.
    *
    * @throws \Exception
    *   If plugin not found.
    */
-  public static function populateFields(EntityInterface $entity) {
+  public static function populateFields(EntityInterface $entity, $faker_profile_id, $faker_locale = NULL) {
 
-    // Check for fields that have a sampler plugin.
-    $field_type_sampler_manager = \Drupal::service('plugin.manager.faker_data_sampler');
-    $field_type_samplers_definitions = $field_type_sampler_manager->getDefinitions();
+    $faker_profile = \Drupal::entityTypeManager()->getStorage('faker_profile')->load($faker_profile_id);
+    $faker_profile_data_samplers = $faker_profile->getDataSamplers();
 
     /** @var \Drupal\field\FieldConfigInterface[] $instances */
     $instances = \Drupal::entityTypeManager()
@@ -43,27 +46,26 @@ class FakerHelper {
       }
       $field_name = $field_storage->getName();
       $field_definition = $entity->$field_name->getFieldDefinition();
+      $field_definition_type = $field_definition->getType();
 
       // Keep track of the sampling type.
       $faker_sampling = FALSE;
 
-      // Iterate through registered sampler definitions.
-      foreach ($field_type_samplers_definitions as $faker_sampler_id => $field_type_samplers_definition) {
-        // Match field type id with sampler.
-        if ($field_type_samplers_definition['fieldTypeId'] === $field_definition->getType()) {
-          /** @var \Drupal\faker\FakerDataSamplerInterface $faker_sampler */
-          $faker_sampler = $field_type_sampler_manager->createInstance($faker_sampler_id);
-          $values = [];
-          for ($delta = 0; $delta < $max; $delta++) {
-            $values[$delta] = $faker_sampler::generateFakerValue($field_definition);
-          }
-          $entity->$field_name->setValue($values);
-          $faker_sampling = TRUE;
-          break;
+      // Match field type id with sampler.
+      if (isset($faker_profile_data_samplers[$field_definition_type])) {
+        $faker_sampler_id = $faker_profile_data_samplers[$field_definition_type];
+        /** @var \Drupal\faker\FakerDataSamplerInterface $faker_sampler */
+        $faker_sampler = \Drupal::service('plugin.manager.faker_data_sampler')->createInstance($faker_sampler_id);
+        $values = [];
+        for ($delta = 0; $delta < $max; $delta++) {
+          $values[$delta] = $faker_sampler::generateFakerValue($field_definition, $faker_locale);
         }
+        $entity->$field_name->setValue($values);
+        $faker_sampling = TRUE;
       }
+
       // Fallback to original core sample data population if faker sampling
-      // did not happen.
+      // did not happen or wasn't mapped to deviate from core sampling.
       if ($faker_sampling === FALSE) {
         $entity->$field_name->generateSampleItems($max);
       }

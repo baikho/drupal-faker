@@ -1,0 +1,31 @@
+entity.faker_profile.collection:
+  path: '/admin/config/development/faker-profile'
+  defaults:
+    _entity_list: 'faker_profile'
+    _title: 'Faker Profile configuration'
+  requirements:
+    _permission: 'administer faker profile configuration'
+
+entity.faker_profile.add_form:
+  path: '/admin/config/development/faker-profile/add'
+  defaults:
+    _entity_form: 'faker_profile.add'
+    _title: 'Add Faker Profile'
+  requirements:
+    _permission: 'administer faker profile configuration'
+
+entity.faker_profile.edit_form:
+  path: '/admin/config/development/faker-profile/{faker_profile}'
+  defaults:
+    _entity_form: 'faker_profile.edit'
+    _title: 'Edit Faker Profile'
+  requirements:
+    _permission: 'administer faker profile configuration'
+
+entity.faker_profile.delete_form:
+  path: '/admin/config/development/faker-profile/{faker_profile}/delete'
+  defaults:
+    _entity_form: 'faker_profile.delete'
+    _title: 'Delete Faker Profile'
+  requirements:
+    _permission: 'administer faker profile configuration'
