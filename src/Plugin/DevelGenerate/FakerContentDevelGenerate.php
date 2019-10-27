@@ -6,6 +6,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\devel_generate\Plugin\DevelGenerate\ContentDevelGenerate;
 use Drupal\faker\FakerConstants;
+use Drupal\faker\FakerHelper;
 
 /**
  * Class FakerContentDevelGenerate.
@@ -33,7 +34,7 @@ class FakerContentDevelGenerate extends ContentDevelGenerate {
       $entities = [];
     }
 
-    $faker_profile_options = [
+    $faker_profile_options = $faker_locale_options = [
       '_none_' => $this->t('None'),
     ];
 
@@ -53,11 +54,7 @@ class FakerContentDevelGenerate extends ContentDevelGenerate {
       '#title' => $this->t('Faker Locale'),
       '#description' => $this->t('Use a Faker Locale for content population.'),
       '#type' => 'select',
-      '#options' => [
-        'en_US' => 'en_US',
-        'en_GB' => 'en_GB',
-        'nl_BE' => 'nl_BE',
-      ],
+      '#options' => $faker_locale_options + array_combine(FakerHelper::getLocales(), FakerHelper::getLocales()),
       '#weight' => 100,
       '#states' => [
         'invisible' => [
