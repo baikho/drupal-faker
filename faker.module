@@ -32,7 +32,7 @@ function faker_node_presave(EntityInterface $node) {
   // Check for devel_generate details.
   if ($devel_generate && isset($node->devel_generate)) {
     // Check if Faker has been chosen in the form.
-    if (isset($node->devel_generate[FakerConstants::PROFILE]) && (bool) $node->devel_generate[FakerConstants::PROFILE] !== '_none_') {
+    if (isset($node->devel_generate[FakerConstants::PROFILE]) && $node->devel_generate[FakerConstants::PROFILE] !== '_none_') {
       // Specify title using Faker.
       $node->setTitle(Factory::create($node->devel_generate[FakerConstants::LOCALE] ?? NULL)->country);
       // Faker sample data population.
