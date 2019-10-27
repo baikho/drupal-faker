@@ -51,10 +51,11 @@ class FakerHelper {
       foreach ($field_type_samplers_definitions as $faker_sampler_id => $field_type_samplers_definition) {
         // Match field type id with sampler.
         if ($field_type_samplers_definition['fieldTypeId'] === $field_definition->getType()) {
+          /** @var \Drupal\faker\FakerDataSamplerInterface $faker_sampler */
           $faker_sampler = $field_type_sampler_manager->createInstance($faker_sampler_id);
           $values = [];
           for ($delta = 0; $delta < $max; $delta++) {
-            $values[$delta] = $faker_sampler::generateSampleValue($field_definition);
+            $values[$delta] = $faker_sampler::generateFakerValue($field_definition);
           }
           $entity->$field_name->setValue($values);
           $faker_sampling = TRUE;

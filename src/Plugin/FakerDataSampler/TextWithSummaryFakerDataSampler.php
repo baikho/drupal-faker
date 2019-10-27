@@ -7,19 +7,19 @@ use Drupal\faker\FakerDataSamplerBase;
 use Faker\Factory;
 
 /**
- * Class TextWithSummaryItemFakerDataSampler.
+ * Class TextWithSummaryFakerDataSampler.
  *
  * @FakerDataSampler(
  *   id = "faker_text_with_summary",
  *   fieldTypeId = "text_with_summary",
  * )
  */
-class TextWithSummaryItemFakerDataSampler extends FakerDataSamplerBase {
+class TextWithSummaryFakerDataSampler extends FakerDataSamplerBase {
 
   /**
    * {@inheritdoc}
    */
-  public static function generateSampleValue(FieldDefinitionInterface $field_definition) {
+  public static function generateFakerValue(FieldDefinitionInterface $field_definition) {
 
     $faker = Factory::create();
     $settings = $field_definition->getSettings();
