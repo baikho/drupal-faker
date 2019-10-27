@@ -7,6 +7,7 @@
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\faker\FakerConstants;
+use Drupal\faker\FakerHelper;
 use Drupal\faker\Plugin\DevelGenerate\FakerContentDevelGenerate;
 use Faker\Factory;
 
@@ -32,7 +33,10 @@ function faker_node_presave(EntityInterface $node) {
   if ($devel_generate && isset($node->devel_generate)) {
     // Check if Faker has been chosen in the form.
     if (isset($node->devel_generate[FakerConstants::USE_FAKER]) && (bool) $node->devel_generate[FakerConstants::USE_FAKER] === TRUE) {
+      // Specify title using Faker.
       $node->setTitle(Factory::create()->country);
+      // Faker sample data population.
+      FakerHelper::populateFields($node);
     }
   }
 

@@ -1,0 +1,4 @@
+services:
+  plugin.manager.faker_data_sampler:
+    class: Drupal\faker\FakerDataSamplerManager
+    parent: default_plugin_manager
