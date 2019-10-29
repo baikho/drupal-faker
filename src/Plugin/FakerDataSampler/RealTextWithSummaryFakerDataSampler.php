@@ -7,17 +7,17 @@ use Drupal\faker\FakerDataSamplerBase;
 use Faker\Factory;
 
 /**
- * Class TextWithSummaryFakerDataSampler.
+ * Class RealTextWithSummaryFakerDataSampler.
  *
  * @FakerDataSampler(
- *   id = "faker_text_with_summary",
- *   label = @Translation("Faker Text (formatted, long, with summary)"),
+ *   id = "faker_real_text_with_summary",
+ *   label = @Translation("Faker Real Text (formatted, long, with summary)"),
  *   field_type_ids = {
  *     "text_with_summary",
  *   }
  * )
  */
-class TextWithSummaryFakerDataSampler extends FakerDataSamplerBase {
+class RealTextWithSummaryFakerDataSampler extends FakerDataSamplerBase {
 
   /**
    * {@inheritdoc}
@@ -27,12 +27,15 @@ class TextWithSummaryFakerDataSampler extends FakerDataSamplerBase {
     $faker = Factory::create($faker_locale);
     $settings = $field_definition->getSettings();
 
+    // Run garbage collector to reduce memory exhaustion.
+    gc_collect_cycles();
+
     if (empty($settings['max_length'])) {
-      $value = $faker->paragraphs(12, TRUE);
+      $value = $faker->realText(600);
     }
     else {
       // Textfield handling.
-      $value = substr($faker->paragraph(random_int(1, $settings['max_length'] / 3)), 0, $settings['max_length']);
+      $value = substr($faker->realText(random_int(1, $settings['max_length'] / 3)), 0, $settings['max_length']);
     }
 
     return [

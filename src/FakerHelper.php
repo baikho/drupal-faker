@@ -98,6 +98,45 @@ class FakerHelper {
   }
 
   /**
+   * Helps handling entity pre save hooks.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity to be enriched with sample field values.
+   */
+  public static function entityPreSave(EntityInterface $entity) {
+
+    $devel_generate = \Drupal::moduleHandler()->moduleExists('devel_generate');
+
+    // Check for devel_generate details.
+    if ($devel_generate && isset($entity->devel_generate)) {
+      // Check if Faker has been chosen in the form.
+      if (isset($entity->devel_generate[FakerConstants::PROFILE]) && $entity->devel_generate[FakerConstants::PROFILE] !== '_none_') {
+        // Reset locale if not selected.
+        if ($entity->devel_generate[FakerConstants::LOCALE] === '_none_') {
+          $entity->devel_generate[FakerConstants::LOCALE] = 'en_US';
+        }
+        // Re-set title using Faker if required.
+        if (isset($entity->devel_generate[FakerConstants::ENTITY_TITLE]) && $entity->devel_generate[FakerConstants::ENTITY_TITLE] !== '_none_') {
+          /** @var \Drupal\faker\FakerDataSamplerInterface $faker_sampler */
+          $faker_sampler = \Drupal::service('plugin.manager.faker_data_sampler')->createInstance($entity->devel_generate[FakerConstants::ENTITY_TITLE]);
+          $entity->setTitle($faker_sampler::generateFakerValue(NULL, $entity->devel_generate[FakerConstants::LOCALE]));
+        }
+        // Faker sample data population.
+        try {
+          self::populateFields(
+            $entity,
+            $entity->devel_generate[FakerConstants::PROFILE],
+            $entity->devel_generate[FakerConstants::LOCALE]
+          );
+        }
+        catch (\Exception $e) {
+          // Do nothing.
+        }
+      }
+    }
+  }
+
+  /**
    * Populate the fields on a given entity with sample values.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity

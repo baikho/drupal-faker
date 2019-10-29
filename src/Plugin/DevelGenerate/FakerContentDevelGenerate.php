@@ -6,7 +6,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\devel_generate\Plugin\DevelGenerate\ContentDevelGenerate;
 use Drupal\faker\FakerConstants;
-use Drupal\faker\FakerHelper;
+use Drupal\faker\FakerDevelGenerateTrait;
 
 /**
  * Class FakerContentDevelGenerate.
@@ -14,6 +14,8 @@ use Drupal\faker\FakerHelper;
  * @package Drupal\faker\Plugin\DevelGenerate
  */
 class FakerContentDevelGenerate extends ContentDevelGenerate {
+
+  use FakerDevelGenerateTrait;
 
   /**
    * Identifier for Faker data.
@@ -27,41 +29,9 @@ class FakerContentDevelGenerate extends ContentDevelGenerate {
    */
   public function settingsForm(array $form, FormStateInterface $form_state) {
 
-    try {
-      $entities = \Drupal::entityTypeManager()->getStorage('faker_profile')->loadMultiple();
-    }
-    catch (\Exception $e) {
-      $entities = [];
-    }
-
-    $faker_profile_options = $faker_locale_options = [
-      '_none_' => $this->t('None'),
-    ];
-
-    foreach ($entities as $key => $entity) {
-      $faker_profile_options[$key] = $entity->label();
-    }
-
-    $form[FakerConstants::PROFILE] = [
-      '#title' => $this->t('Faker Profile'),
-      '#description' => $this->t('Use a Faker Profile for content population.'),
-      '#type' => 'select',
-      '#options' => $faker_profile_options,
-      '#weight' => 100,
-    ];
-
-    $form[FakerConstants::LOCALE] = [
-      '#title' => $this->t('Faker Locale'),
-      '#description' => $this->t('Use a Faker Locale for content population.'),
-      '#type' => 'select',
-      '#options' => $faker_locale_options + array_combine(FakerHelper::getLocales(), FakerHelper::getLocales()),
-      '#weight' => 100,
-      '#states' => [
-        'invisible' => [
-          ':input[name="' . FakerConstants::PROFILE . '"]' => ['value' => '_none_'],
-        ],
-      ],
-    ];
+    $form = $this->initFakerSettingsForm($form, $form_state);
+    $form['faker'][FakerConstants::ENTITY_TITLE]['#title'] = $this->t('Node title');
+    $form['faker'][FakerConstants::ENTITY_TITLE]['#description'] = $this->t('Use a Data Sampler for the node titles.');
 
     return parent::settingsForm($form, $form_state);
   }

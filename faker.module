@@ -6,10 +6,9 @@
  */
 
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\faker\FakerConstants;
 use Drupal\faker\FakerHelper;
 use Drupal\faker\Plugin\DevelGenerate\FakerContentDevelGenerate;
-use Faker\Factory;
+use Drupal\faker\Plugin\DevelGenerate\FakerUserDevelGenerate;
 
 /**
  * Implements hook_devel_generate_info_alter().
@@ -18,6 +17,7 @@ use Faker\Factory;
  */
 function faker_devel_generate_info_alter(array &$definitions) {
   $definitions['content']['class'] = FakerContentDevelGenerate::class;
+  $definitions['user']['class'] = FakerUserDevelGenerate::class;
 }
 
 /**
@@ -26,30 +26,14 @@ function faker_devel_generate_info_alter(array &$definitions) {
  * Target nodes that have been saved through devel_generate.
  */
 function faker_node_presave(EntityInterface $node) {
+  FakerHelper::entityPreSave($node);
+}
 
-  $devel_generate = \Drupal::moduleHandler()->moduleExists('devel_generate');
-
-  // Check for devel_generate details.
-  if ($devel_generate && isset($node->devel_generate)) {
-    // Check if Faker has been chosen in the form.
-    if (isset($node->devel_generate[FakerConstants::PROFILE]) && $node->devel_generate[FakerConstants::PROFILE] !== '_none_') {
-      // Reset locale if not selected.
-      if ($node->devel_generate[FakerConstants::LOCALE] === '_none_') {
-        $node->devel_generate[FakerConstants::LOCALE] = NULL;
-      }
-      // Specify title using Faker.
-      $node->setTitle(Factory::create($node->devel_generate[FakerConstants::LOCALE])->country);
-      // Faker sample data population.
-      try {
-        FakerHelper::populateFields(
-          $node,
-          $node->devel_generate[FakerConstants::PROFILE],
-          $node->devel_generate[FakerConstants::LOCALE]
-        );
-      } catch (\Exception $e) {
-        // Do nothing.
-      }
-    }
-  }
-
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ *
+ * Target user that have been saved through devel_generate.
+ */
+function faker_user_presave(EntityInterface $user) {
+  FakerHelper::entityPreSave($user);
 }

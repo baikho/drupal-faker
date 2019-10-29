@@ -22,8 +22,10 @@ class CountryFakerDataSampler extends FakerDataSamplerBase {
   /**
    * {@inheritdoc}
    */
-  public static function generateFakerValue(FieldDefinitionInterface $field_definition, $faker_locale = NULL) {
-    return Factory::create($faker_locale)->country;
+  public static function generateFakerValue(FieldDefinitionInterface $field_definition = NULL, $faker_locale = NULL) {
+    return [
+      'value' => Factory::create($faker_locale)->country,
+    ];
   }
 
 }

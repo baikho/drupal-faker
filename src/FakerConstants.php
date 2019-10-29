@@ -17,4 +17,9 @@ abstract class FakerConstants {
    */
   public const LOCALE = 'faker_locale';
 
+  /**
+   * Faker entity title form key.
+   */
+  public const ENTITY_TITLE = 'entity_title';
+
 }

@@ -25,7 +25,7 @@ class ImageFakerDataSampler extends FakerDataSamplerBase {
   /**
    * {@inheritdoc}
    */
-  public static function generateFakerValue(FieldDefinitionInterface $field_definition, $faker_locale = NULL) {
+  public static function generateFakerValue(FieldDefinitionInterface $field_definition = NULL, $faker_locale = NULL) {
 
     $faker = Factory::create($faker_locale);
     $settings = $field_definition->getSettings();

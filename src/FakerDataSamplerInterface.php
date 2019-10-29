@@ -24,6 +24,6 @@ interface FakerDataSamplerInterface {
    * @param string $faker_locale
    *   The locale to use if specified.
    */
-  public static function generateFakerValue(FieldDefinitionInterface $field_definition, $faker_locale = NULL);
+  public static function generateFakerValue(FieldDefinitionInterface $field_definition = NULL, $faker_locale = NULL);
 
 }
