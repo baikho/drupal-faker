@@ -1,37 +1,31 @@
-## Welcome to GitHub Pages
+# Drupal 8 Integration Demo
 
-You can use the [editor on GitHub](https://github.com/baikho/Faker/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+## Devel Generate with Faker Profiles
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+The below describes a content population with Devel Generate & Faker modules on a default Drupal installation.
 
-### Markdown
+1. Navigate via the Admin menu to the Faker Profiles configuration screen:
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+![Admin menu link Faker Profiles](/screens/admin-menu-link-faker-profiles.png)
 
-```markdown
-Syntax highlighted code block
+2. Add, Edit or Delete Faker Profiles:
 
-# Header 1
-## Header 2
-### Header 3
+![Manage Faker Profiles](/screens/manage-faker-profiles.png)
 
-- Bulleted
-- List
+3. Now we're going to use our Faker Profile for content population, so navigate to Devel Generate:
 
-1. Numbered
-2. List
+![Admin menu link Devel Generate](/screens/admin-menu-link-devel-generate-faker.png)
 
-**Bold** and _Italic_ and `Code` text
+4. Select the Faker Profile, Locale and Node title preferences:
 
-[Link](url) and ![Image](src)
-```
+![Admin menu link Devel Generate](/screens/devel-generate-faker.png)
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+5. Click "Generate" and Drupal will start populating your content with your Faker Profile:
 
-### Jekyll Themes
+![Admin menu link Devel Generate](/screens/devel-generate-faker-completion.png)
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/baikho/Faker/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+6. Go to either the Admin content or homepage to see your newly generated content:
 
-### Support or Contact
+![Admin menu link Devel Generate](/screens/admin-content-overview-faker.png)
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+![Admin menu link Devel Generate](/screens/content-overview-faker.png)
