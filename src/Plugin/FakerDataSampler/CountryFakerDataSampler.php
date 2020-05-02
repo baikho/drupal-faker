@@ -7,7 +7,7 @@ use Drupal\faker\FakerDataSamplerBase;
 use Faker\Factory;
 
 /**
- * Class EmailFakerDataSampler.
+ * Class CountryFakerDataSampler.
  *
  * @FakerDataSampler(
  *   id = "faker_country",

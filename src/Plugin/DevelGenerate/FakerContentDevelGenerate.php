@@ -40,11 +40,11 @@ class FakerContentDevelGenerate extends ContentDevelGenerate {
   /**
    * {@inheritdoc}
    */
-  protected function develGenerateContentAddNode(&$results) {
+  protected function generateElements(array $values) {
     if (self::$faker === NULL) {
-      self::$faker = $results[FakerConstants::PROFILE] !== FakerConstants::OPTION_NONE;
+      self::$faker = $values[FakerConstants::PROFILE] !== FakerConstants::OPTION_NONE;
     }
-    parent::develGenerateContentAddNode($results);
+    parent::generateElements($values);
   }
 
   /**
