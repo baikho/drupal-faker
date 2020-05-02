@@ -19,6 +19,8 @@ Install as usual, see [Installing contributed modules
 CONFIGURATION
 -------------
 
-1. Navigate to settings form through `Admin > Configuration > Development > Faker`
+1. Navigate to settings form through `Admin > Configuration > Development > Faker Profiles`
 
    or directly at path `/admin/config/development/faker-profile`
+
+2. With the existing Devel Generate tasks you can now use the Faker Profile as an alternative for data population.
