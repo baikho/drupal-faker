@@ -102,8 +102,10 @@ class FakerHelper {
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The entity to be enriched with sample field values.
+   * @param string|null $decorator
+   *   The entity decorator class.
    */
-  public static function entityPreSave(EntityInterface $entity) {
+  public static function entityPreSave(EntityInterface $entity, $decorator = NULL) {
 
     $devel_generate = \Drupal::moduleHandler()->moduleExists('devel_generate');
 
@@ -115,11 +117,11 @@ class FakerHelper {
         if ($entity->devel_generate[FakerConstants::LOCALE] === FakerConstants::OPTION_NONE) {
           $entity->devel_generate[FakerConstants::LOCALE] = 'en_US';
         }
-        // Re-set title using Faker if required.
+        // Re-set entity specific base fields using Faker if required.
         if (isset($entity->devel_generate[FakerConstants::ENTITY_TITLE]) && $entity->devel_generate[FakerConstants::ENTITY_TITLE] !== FakerConstants::OPTION_NONE) {
           /** @var \Drupal\faker\FakerDataSamplerInterface $faker_sampler */
           $faker_sampler = \Drupal::service('plugin.manager.faker_data_sampler')->createInstance($entity->devel_generate[FakerConstants::ENTITY_TITLE]);
-          $entity->setTitle($faker_sampler::generateFakerValue(NULL, $entity->devel_generate[FakerConstants::LOCALE]));
+          $decorator::setEntityFields($entity, $faker_sampler);
         }
         // Faker sample data population.
         try {

@@ -2,6 +2,7 @@
 
 namespace Drupal\faker;
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
@@ -95,5 +96,15 @@ trait FakerDevelGenerateTrait {
 
     return $form;
   }
+
+  /**
+   * Sets entity specific field values.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity to apply the changes to.
+   * @param \Drupal\faker\FakerDataSamplerInterface $faker_sampler
+   *   The sampler to use for data population.
+   */
+  public static function setEntityFields(EntityInterface $entity, FakerDataSamplerInterface $faker_sampler) {}
 
 }

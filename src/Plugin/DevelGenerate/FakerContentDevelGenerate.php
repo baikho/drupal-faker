@@ -6,6 +6,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\devel_generate\Plugin\DevelGenerate\ContentDevelGenerate;
 use Drupal\faker\FakerConstants;
+use Drupal\faker\FakerDataSamplerInterface;
 use Drupal\faker\FakerDevelGenerateTrait;
 
 /**
@@ -54,6 +55,14 @@ class FakerContentDevelGenerate extends ContentDevelGenerate {
     if (self::$faker !== TRUE) {
       parent::populateFields($entity);
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function setEntityFields(EntityInterface $entity, FakerDataSamplerInterface $faker_sampler) {
+    // Set the entity (node) title.
+    $entity->setTitle($faker_sampler::generateFakerValue(NULL, $entity->devel_generate[FakerConstants::LOCALE]));
   }
 
 }

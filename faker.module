@@ -26,7 +26,7 @@ function faker_devel_generate_info_alter(array &$definitions) {
  * Target nodes that have been saved through devel_generate.
  */
 function faker_node_presave(EntityInterface $node) {
-  FakerHelper::entityPreSave($node);
+  FakerHelper::entityPreSave($node, FakerContentDevelGenerate::class);
 }
 
 /**
@@ -35,5 +35,5 @@ function faker_node_presave(EntityInterface $node) {
  * Target user that have been saved through devel_generate.
  */
 function faker_user_presave(EntityInterface $user) {
-  FakerHelper::entityPreSave($user);
+  FakerHelper::entityPreSave($user, FakerUserDevelGenerate::class);
 }
