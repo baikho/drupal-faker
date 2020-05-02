@@ -110,13 +110,13 @@ class FakerHelper {
     // Check for devel_generate details.
     if ($devel_generate && isset($entity->devel_generate)) {
       // Check if Faker has been chosen in the form.
-      if (isset($entity->devel_generate[FakerConstants::PROFILE]) && $entity->devel_generate[FakerConstants::PROFILE] !== '_none_') {
+      if (isset($entity->devel_generate[FakerConstants::PROFILE]) && $entity->devel_generate[FakerConstants::PROFILE] !== FakerConstants::OPTION_NONE) {
         // Reset locale if not selected.
-        if ($entity->devel_generate[FakerConstants::LOCALE] === '_none_') {
+        if ($entity->devel_generate[FakerConstants::LOCALE] === FakerConstants::OPTION_NONE) {
           $entity->devel_generate[FakerConstants::LOCALE] = 'en_US';
         }
         // Re-set title using Faker if required.
-        if (isset($entity->devel_generate[FakerConstants::ENTITY_TITLE]) && $entity->devel_generate[FakerConstants::ENTITY_TITLE] !== '_none_') {
+        if (isset($entity->devel_generate[FakerConstants::ENTITY_TITLE]) && $entity->devel_generate[FakerConstants::ENTITY_TITLE] !== FakerConstants::OPTION_NONE) {
           /** @var \Drupal\faker\FakerDataSamplerInterface $faker_sampler */
           $faker_sampler = \Drupal::service('plugin.manager.faker_data_sampler')->createInstance($entity->devel_generate[FakerConstants::ENTITY_TITLE]);
           $entity->setTitle($faker_sampler::generateFakerValue(NULL, $entity->devel_generate[FakerConstants::LOCALE]));

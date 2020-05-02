@@ -41,7 +41,7 @@ class FakerContentDevelGenerate extends ContentDevelGenerate {
    */
   protected function develGenerateContentAddNode(&$results) {
     if (self::$faker === NULL) {
-      self::$faker = $results[FakerConstants::PROFILE] !== '_none_';
+      self::$faker = $results[FakerConstants::PROFILE] !== FakerConstants::OPTION_NONE;
     }
     parent::develGenerateContentAddNode($results);
   }

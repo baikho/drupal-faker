@@ -22,4 +22,9 @@ abstract class FakerConstants {
    */
   public const ENTITY_TITLE = 'entity_title';
 
+  /**
+   * Faker option none key.
+   */
+  public const OPTION_NONE = '_none_';
+
 }

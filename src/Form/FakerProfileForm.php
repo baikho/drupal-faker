@@ -4,6 +4,7 @@ namespace Drupal\faker\Form;
 
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\faker\FakerConstants;
 
 /**
  * Form for adding Faker Profiles.
@@ -76,7 +77,7 @@ class FakerProfileForm extends EntityForm {
           'data' => [
             '#type' => 'select',
             '#options' => [
-              '_none_' => $this->t('Default'),
+              FakerConstants::OPTION_NONE => $this->t('Default'),
             ] + $faker_sampler_options,
             '#default_value' => $this->entity->getDataSamplers()[$field_type] ?? NULL,
             '#parents' => ['data_samplers', $field_type_definition['id']],
@@ -97,19 +98,20 @@ class FakerProfileForm extends EntityForm {
 
     $data_samplers = $form_state->getValue('data_samplers', NULL);
     $data_samplers = array_filter($data_samplers, static function ($value) {
-      return $value !== '_none_';
+      return $value !== FakerConstants::OPTION_NONE;
     });
     $this->entity->setDataSamplers($data_samplers);
 
     $edit_link = $this->entity->toLink($this->t('Edit'), 'edit-form')->toString();
+    $context = ['%name' => $this->entity->label(), 'link' => $edit_link];
 
     if ($this->entity->save() === SAVED_NEW) {
       $this->messenger()->addMessage($this->t('Created new Faker Profile.'));
-      $this->logger('faker')->notice('Created new Faker Profile %name.', ['%name' => $this->entity->label(), 'link' => $edit_link]);
+      $this->logger('faker')->notice('Created new Faker Profile %name.', $context);
     }
     else {
       $this->messenger()->addMessage($this->t('Updated Faker Profile.'));
-      $this->logger('faker')->notice('Updated Faker Profile %name.', ['%name' => $this->entity->label(), 'link' => $edit_link]);
+      $this->logger('faker')->notice('Updated Faker Profile %name.', $context);
     }
     $form_state->setRedirect('entity.faker_profile.collection');
   }

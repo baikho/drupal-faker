@@ -19,7 +19,7 @@ trait FakerDevelGenerateTrait {
    */
   public function buildDefaultSelectOption() {
     return [
-      '_none_' => t('None'),
+      FakerConstants::OPTION_NONE => $this->t('None'),
     ];
   }
 
@@ -51,7 +51,7 @@ trait FakerDevelGenerateTrait {
 
     $form['faker'] = [
       '#type' => 'fieldset',
-      '#title' => 'Faker',
+      '#title' => $this->t('Faker'),
       '#collapsible' => TRUE,
       '#weight' => 100,
     ];
@@ -70,7 +70,7 @@ trait FakerDevelGenerateTrait {
       '#options' => $faker_locale_options + array_combine(FakerHelper::getLocales(), FakerHelper::getLocales()),
       '#states' => [
         'invisible' => [
-          ':input[name="' . FakerConstants::PROFILE . '"]' => ['value' => '_none_'],
+          ':input[name="' . FakerConstants::PROFILE . '"]' => ['value' => FakerConstants::OPTION_NONE],
         ],
       ],
     ];
@@ -88,11 +88,10 @@ trait FakerDevelGenerateTrait {
       '#options' => $faker_title_options,
       '#states' => [
         'invisible' => [
-          ':input[name="' . FakerConstants::PROFILE . '"]' => ['value' => '_none_'],
+          ':input[name="' . FakerConstants::PROFILE . '"]' => ['value' => FakerConstants::OPTION_NONE],
         ],
       ],
     ];
-
 
     return $form;
   }
