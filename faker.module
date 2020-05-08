@@ -40,8 +40,12 @@ function faker_hook_info() {
  * to allow modules to add providers to the Faker instance.
  */
 function faker_create() {
-  $lib = libraries_load('faker');
+  static $faker = NULL;
+  if (!empty($faker)) {
+    return $faker;
+  }
 
+  libraries_load('faker');
   $faker = Faker\Factory::create();
   drupal_alter('faker', $faker);
 
