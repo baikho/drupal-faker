@@ -19,7 +19,7 @@ function faker_libraries_info() {
         'autoload.php',
       ),
     ),
-    'version' => '1.1',
+    'version' => '1.9.1',
   );
 
   return $libraries;
