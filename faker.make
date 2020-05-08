@@ -6,4 +6,4 @@ core = 7.x
 api = 2
 
 libraries[faker][download][type] = get
-libraries[faker][download][url] = https://github.com/fzaninotto/Faker/archive/v1.1.0.tar.gz
+libraries[faker][download][url] = https://github.com/fzaninotto/Faker/archive/v1.9.1.tar.gz
