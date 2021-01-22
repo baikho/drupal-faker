@@ -3,7 +3,7 @@ INTRODUCTION
 
 The Faker module allows you to generate fake data using the PHP Faker library.
 
-Read more about [Faker](https://github.com/fzaninotto/Faker).
+Read more about [Faker](https://github.com/FakerPHP/Faker).
 
 REQUIREMENTS
 ------------
